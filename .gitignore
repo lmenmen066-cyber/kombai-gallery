@@ -1,0 +1,21 @@
+# deps / build
+node_modules
+.next
+out
+build
+dist
+
+# env
+.env
+.env*.local
+
+# editor / OS
+.DS_Store
+.idea
+.vscode/*
+!.vscode/extensions.json
+*.log
+*.tsbuildinfo
+
+# next
+next-env.d.ts

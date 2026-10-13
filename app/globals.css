@@ -1,0 +1,150 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/*
+ * Kombai-gallery design tokens — light-first editorial palette.
+ * All semantic colours are HSL components so Tailwind's `<alpha-value>`
+ * substitution works; consumers must go through the tokens below (via
+ * `bg-surface`, `text-fg`, `border-border` …) — never hard-code hexes in
+ * components, so dark mode is a single `class="dark"` on `<html>`.
+ */
+:root {
+  --surface: 40 30% 98%;          /* near-white, slightly warm */
+  --surface-raised: 40 30% 100%;
+  --surface-inverse: 220 15% 8%;
+
+  --fg: 220 15% 8%;
+  --fg-muted: 220 8% 42%;
+  --fg-subtle: 220 9% 47%;
+  --fg-inverse: 40 30% 98%;
+
+  --border: 220 15% 90%;
+  --border-strong: 220 10% 78%;
+
+  --accent: 220 15% 8%;           /* CTA default is essentially near-black */
+  --accent-contrast: 40 30% 98%;
+
+  --success: 152 50% 33%;
+  --warning: 33 92% 33%;
+  --danger: 2 68% 52%;
+  --info: 212 84% 44%;
+
+  /* Layered quiet shadow tint; used as `hsl(var(--shadow-tint) / alpha)` */
+  --shadow-tint: 220 25% 12%;
+
+  /* Editorial warm→cool gradient — used sparingly (hero glow, brand mark) */
+  --gradient-brand: linear-gradient(135deg, #f5c9a0 0%, #c9a3ff 42%, #a4d1ff 100%);
+  --gradient-brand-soft: linear-gradient(135deg, #fbe4c6 0%, #e5d5ff 42%, #d3e9ff 100%);
+  --gradient-radial: radial-gradient(1200px 500px at 50% -10%, rgba(201, 163, 255, 0.18), transparent 60%),
+    radial-gradient(900px 420px at 100% 20%, rgba(164, 209, 255, 0.12), transparent 60%),
+    radial-gradient(700px 380px at 0% 30%, rgba(245, 201, 160, 0.14), transparent 60%);
+}
+
+html.dark {
+  --surface: 220 18% 8%;
+  --surface-raised: 220 16% 12%;
+  --surface-inverse: 40 30% 98%;
+
+  --fg: 40 30% 98%;
+  --fg-muted: 220 10% 72%;
+  --fg-subtle: 220 8% 58%;
+  --fg-inverse: 220 15% 8%;
+
+  --border: 220 12% 18%;
+  --border-strong: 220 10% 28%;
+
+  --accent: 40 30% 98%;
+  --accent-contrast: 220 15% 8%;
+
+  --success: 152 45% 55%;
+  --warning: 38 92% 60%;
+  --danger: 2 78% 62%;
+  --info: 210 90% 62%;
+
+  --shadow-tint: 220 40% 2%;
+
+  --gradient-brand: linear-gradient(135deg, #f5c9a0 0%, #c9a3ff 42%, #a4d1ff 100%);
+  --gradient-brand-soft: linear-gradient(135deg, rgba(245, 201, 160, 0.14) 0%, rgba(201, 163, 255, 0.18) 42%, rgba(164, 209, 255, 0.14) 100%);
+  --gradient-radial: radial-gradient(1200px 500px at 50% -10%, rgba(201, 163, 255, 0.22), transparent 60%),
+    radial-gradient(900px 420px at 100% 20%, rgba(164, 209, 255, 0.14), transparent 60%),
+    radial-gradient(700px 380px at 0% 30%, rgba(245, 201, 160, 0.18), transparent 60%);
+}
+
+@layer base {
+  * {
+    border-color: hsl(var(--border));
+  }
+  html {
+    -webkit-tap-highlight-color: transparent;
+    scroll-behavior: smooth;
+  }
+  body {
+    background-color: hsl(var(--surface));
+    color: hsl(var(--fg));
+    font-feature-settings: 'cv02', 'cv03', 'cv04', 'ss01';
+    text-rendering: optimizeLegibility;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+  ::selection {
+    background-color: hsl(var(--fg) / 0.9);
+    color: hsl(var(--fg-inverse));
+  }
+  /* Accessible focus ring for keyboard users only */
+  :where(a, button, input, textarea, select, [tabindex]):not([tabindex='-1']):focus-visible {
+    outline: none;
+    box-shadow: theme('boxShadow.ring');
+    border-radius: inherit;
+  }
+  /* Headings get the display face; body copy uses sans. */
+  h1, h2, h3, h4 {
+    font-family: var(--font-syne), ui-sans-serif, system-ui, sans-serif;
+    letter-spacing: -0.02em;
+    color: hsl(var(--fg));
+  }
+}
+
+@layer components {
+  /* Utility classes for the editorial look used across sections. */
+  .brand-gradient-text {
+    background-image: var(--gradient-brand);
+    background-clip: text;
+    -webkit-background-clip: text;
+    color: transparent;
+  }
+  .surface-card {
+    @apply bg-surface-raised border border-border rounded-xl;
+    box-shadow: theme('boxShadow.elevation1');
+  }
+  .divider-fade {
+    height: 1px;
+    background: linear-gradient(90deg, transparent, hsl(var(--border-strong) / 0.7), transparent);
+  }
+  .hairline-grid {
+    background-image:
+      linear-gradient(to right, hsl(var(--border) / 0.6) 1px, transparent 1px),
+      linear-gradient(to bottom, hsl(var(--border) / 0.6) 1px, transparent 1px);
+    background-size: 64px 64px;
+    mask-image: radial-gradient(ellipse at center, black 30%, transparent 75%);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+  *, *::before, *::after {
+    animation-duration: 0.001ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.001ms !important;
+  }
+}
+
+/* Custom cursor: only hide the native pointer when the JS cursor is actually
+   mounted (html.kg-cursor) and the device has a fine pointer. Text inputs keep
+   their caret — cursor:none hides the mouse pointer, not the caret. */
+@media (pointer: fine) {
+  html.kg-cursor,
+  html.kg-cursor * {
+    cursor: none !important;
+  }
+}
