@@ -1,0 +1,48 @@
+# Normalize line endings: store LF in the repo, and check out LF in the working
+# tree on every OS. Fixes the "LF will be replaced by CRLF" warnings and keeps
+# diffs/blurbs identical between Windows and macOS/Linux contributors.
+* text=auto eol=lf
+
+# Be explicit about the text file types that matter here.
+*.ts        text eol=lf
+*.tsx       text eol=lf
+*.js        text eol=lf
+*.jsx       text eol=lf
+*.mjs       text eol=lf
+*.cjs       text eol=lf
+*.css       text eol=lf
+*.scss      text eol=lf
+*.json      text eol=lf
+*.jsonc     text eol=lf
+*.md        text eol=lf
+*.mdx       text eol=lf
+*.html      text eol=lf
+*.svg       text eol=lf
+*.yml       text eol=lf
+*.yaml      text eol=lf
+*.txt       text eol=lf
+.gitattributes text eol=lf
+*.sh        text eol=lf
+
+# Windows scripts keep CRLF so they run correctly if ever used.
+*.bat       text eol=crlf
+*.cmd       text eol=crlf
+
+# Never rewrite binary content.
+*.png       binary
+*.jpg       binary
+*.jpeg      binary
+*.gif       binary
+*.webp      binary
+*.avif      binary
+*.ico       binary
+*.bmp       binary
+*.woff      binary
+*.woff2     binary
+*.ttf       binary
+*.otf       binary
+*.eot       binary
+*.mp4       binary
+*.webm      binary
+*.pdf       binary
+*.zip       binary
