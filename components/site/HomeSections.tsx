@@ -795,7 +795,7 @@ export function FormSection() {
             {done ? (
               <div className="flex flex-col items-center gap-4 py-8 text-center">
                 <ProgressRing value={100} size={72} stroke={7} formatValue={() => <Check className="h-6 w-6 text-success" />} />
-                <h4 className="font-display text-h3 font-semibold text-fg">You're all set</h4>
+                <h4 className="font-display text-h3 font-semibold text-fg">You’re all set</h4>
                 <p className="max-w-[32ch] text-body text-fg-muted">
                   This demo validated, submitted and completed without ever leaving the component.
                 </p>
@@ -849,7 +849,7 @@ export function FormSection() {
                   <Check className="mt-0.5 h-4 w-4 shrink-0 text-fg" /> Errors shake once and announce via aria-live; success draws a check.
                 </li>
                 <li className="flex gap-2">
-                  <Check className="mt-0.5 h-4 w-4 shrink-0 text-fg" /> You can't advance past an invalid step; you can always go back.
+                  <Check className="mt-0.5 h-4 w-4 shrink-0 text-fg" /> You can’t advance past an invalid step; you can always go back.
                 </li>
               </ul>
             </div>
