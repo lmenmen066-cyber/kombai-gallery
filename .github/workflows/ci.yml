@@ -1,0 +1,55 @@
+name: CI
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+
+permissions:
+  contents: read
+
+# Cancel superseded runs on the same ref to save minutes.
+concurrency:
+  group: ci-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: npm
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Typecheck
+        run: npm run typecheck
+
+      - name: Lint
+        run: npm run lint
+        env:
+          NEXT_TELEMETRY_DISABLED: "1"
+
+      - name: Build (static prerender)
+        run: npm run build
+        env:
+          NEXT_TELEMETRY_DISABLED: "1"
+
+      - name: Contrast audit
+        run: node scripts/contrast-audit.mjs a11y-contrast-report.md
+
+      - name: Upload contrast report
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: a11y-contrast-report
+          path: a11y-contrast-report.md
+          if-no-files-found: warn
