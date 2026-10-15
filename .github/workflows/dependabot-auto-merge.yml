@@ -1,0 +1,25 @@
+name: Dependabot auto-merge
+
+# Runs in the base-branch workflow context (so its token has write access), but
+# NEVER checks out or executes PR code — it only flips "auto-merge" on the PR.
+on: pull_request_target
+
+permissions:
+  contents: write
+  pull-requests: write
+
+jobs:
+  auto-merge:
+    # Restrict to Dependabot-authored PRs only.
+    if: github.actor == 'dependabot[bot]'
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - name: Enable auto-merge (squash once Lint/Build pass)
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          PR_URL: ${{ github.event.pull_request.html_url }}
+        # --auto marks "merge when required checks are green"; with the repo's
+        # branch protection requiring Lint + Build, nothing merges until CI is
+        # happy. Safe no-op if already enabled.
+        run: gh pr merge --auto --squash "$PR_URL"
