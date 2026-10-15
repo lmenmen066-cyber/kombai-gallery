@@ -44,12 +44,9 @@ jobs:
           NEXT_TELEMETRY_DISABLED: "1"
 
       - name: Contrast audit
-        run: node scripts/contrast-audit.mjs a11y-contrast-report.md
-
-      - name: Upload contrast report
-        if: always()
-        uses: actions/upload-artifact@v4
-        with:
-          name: a11y-contrast-report
-          path: a11y-contrast-report.md
-          if-no-files-found: warn
+        run: |
+          node scripts/contrast-audit.mjs a11y-contrast-report.md
+          # Fail the build if any text pair is a hard (< 3.0:1) contrast failure.
+          if grep -qE "^Hard text failures \(<3\.0\): [1-9]" <(node scripts/contrast-audit.mjs /tmp/r.md); then
+            echo "::error::WCAG hard contrast regression (< 3.0:1) detected"; exit 1;
+          fi
