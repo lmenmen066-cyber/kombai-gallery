@@ -15,11 +15,20 @@ jobs:
     runs-on: ubuntu-latest
     timeout-minutes: 5
     steps:
-      - name: Enable auto-merge (squash once Lint/Build pass)
+      - name: Dependabot metadata
+        id: meta
+        uses: dependabot/fetch-metadata@v2
+        with:
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Enable auto-merge for minor/patch (majors left for review)
+        # Skip version-major bumps and directory/other moves; a human reviews those.
+        if: >-
+          steps.meta.outputs.dependency-type != 'indirect:development' &&
+          steps.meta.outputs.update-type != 'version-update:semver-major'
         env:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           PR_URL: ${{ github.event.pull_request.html_url }}
-        # --auto marks "merge when required checks are green"; with the repo's
-        # branch protection requiring Lint + Build, nothing merges until CI is
-        # happy. Safe no-op if already enabled.
+        # --auto marks "merge when required checks are green"; the branch
+        # protection requires Lint + Build, so nothing merges until CI is happy.
         run: gh pr merge --auto --squash "$PR_URL"
