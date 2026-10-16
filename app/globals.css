@@ -1,6 +1,10 @@
-@tailwind base;
-@tailwind components;
-@tailwind utilities;
+@import "tailwindcss";
+@config "../tailwind.config.ts";
+
+/* Tailwind v4: class-based dark mode (the v3 config's `darkMode` key is no
+   longer honoured, so declare the variant explicitly). */
+@custom-variant dark (&:where(.dark, .dark *));
+
 
 /*
  * Kombai-gallery design tokens — light-first editorial palette.
