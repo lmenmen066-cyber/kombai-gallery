@@ -198,3 +198,10 @@ The toolchain is kept current; every major bump landed on `main` behind the requ
 - **Tailwind 3 → 4** — `@import "tailwindcss"` + `@config` (reuses the theme) + `@custom-variant dark` (class strategy); `autoprefixer` dropped (bundled); `<alpha-value>` → `color-mix`.
 - **tailwind-merge 2 → 3**, **ESLint 9 → 10** — landed after their companions (Tailwind v4, flat config) were in place; `twMerge`/flat-config APIs unchanged.
 - CI hardening: `next build` retries ×3 to absorb transient `next/font`+Turbopack fetch flakes.
+
+## CI & merging
+
+`main` is protected by required status checks (**Lint**, **Build**) and a **merge queue**:
+mark a PR ready (or let Dependabot auto-merge non-major bumps) and it rebases onto the
+latest `main`, runs the checks, and merges only when green — no manual merge, no
+out-of-date races. Enable/manage the queue under **Settings → General → Merge queue**.
