@@ -1,22 +1,16 @@
-import { dirname } from "path";
-import { fileURLToPath } from "url";
-import { FlatCompat } from "@eslint/eslintrc";
+import coreWebVitals from "eslint-config-next/core-web-vitals";
 
-const __filename = fileURLToPath(import.meta.url);
-const __dirname = dirname(__filename);
-
-// Flat config, but reusing the legacy shared config via FlatCompat so this is a
-// drop-in migration from `.eslintrc.json` (same scope: next/core-web-vitals only
-// — we intentionally did NOT add next/typescript to avoid introducing new rules
-// mid-migration). `next lint` is deprecated in Next 15 and gone in 16, so the
-// lint script now calls the ESLint CLI directly (`eslint .`).
-const compat = new FlatCompat({ baseDirectory: __dirname });
-
+// ESLint 9 flat config. eslint-config-next@16 exports a flat `Linter.Config[]`
+// directly, so FlatCompat / the `.eslintrc` shim is no longer needed (and in
+// fact crashes against the flat array). Same lint scope as the old config
+// (next/core-web-vitals only) — we intentionally do not add next/typescript to
+// avoid introducing new rules. `next lint` is removed in Next 16, so the lint
+// script calls the ESLint CLI directly (`eslint .`).
 const eslintConfig = [
   {
     ignores: [".next/**/*", "out/**/*", "build/**/*", "node_modules/**/*"],
   },
-  ...compat.extends("next/core-web-vitals"),
+  ...coreWebVitals,
 ];
 
 export default eslintConfig;
