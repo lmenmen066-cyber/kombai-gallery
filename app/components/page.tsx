@@ -1,6 +1,7 @@
 'use client'
 
 import * as React from 'react'
+import Link from 'next/link'
 import { motion, useReducedMotion } from 'framer-motion'
 import { Search, X } from 'lucide-react'
 import { Container } from '@/components/ui/Container'
@@ -286,10 +287,10 @@ export default function ComponentsIndexPage() {
             <Divider />
             <div className="mt-6 flex flex-wrap items-center justify-between gap-4">
               <p className="text-sm text-fg-muted">
-                Live pages: <a className="text-fg underline underline-offset-4" href="/dashboard">Dashboard</a> ·{' '}
-                <a className="text-fg underline underline-offset-4" href="/pricing">Pricing</a> ·{' '}
-                <a className="text-fg underline underline-offset-4" href="/login">Auth</a> ·{' '}
-                <a className="text-fg underline underline-offset-4" href="/">Home</a>
+                Live pages: <Link className="text-fg underline underline-offset-4" href="/dashboard">Dashboard</Link> ·{' '}
+                <Link className="text-fg underline underline-offset-4" href="/pricing">Pricing</Link> ·{' '}
+                <Link className="text-fg underline underline-offset-4" href="/login">Auth</Link> ·{' '}
+                <Link className="text-fg underline underline-offset-4" href="/">Home</Link>
               </p>
               <Button href="/" variant="secondary" size="sm">← Back home</Button>
             </div>
