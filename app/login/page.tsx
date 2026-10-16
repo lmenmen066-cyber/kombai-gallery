@@ -3,7 +3,8 @@
 import * as React from 'react'
 import Link from 'next/link'
 import { motion, useReducedMotion } from 'framer-motion'
-import { Check, Github, Eye, EyeOff, ArrowLeft } from 'lucide-react'
+import { Check, Eye, EyeOff, ArrowLeft } from 'lucide-react'
+import { GitHubIcon } from '@/components/ui/BrandIcons'
 import { Field } from '@/components/ui/Field'
 import { Button } from '@/components/ui/Button'
 import { Divider } from '@/components/ui/Divider'
@@ -254,7 +255,7 @@ export default function LoginPage() {
                 <GoogleIcon />
               </SocialButton>
               <SocialButton onClick={social('GitHub')} label="GitHub">
-                <Github className="h-[18px] w-[18px]" />
+                <GitHubIcon className="h-[18px] w-[18px]" />
               </SocialButton>
               <SocialButton onClick={social('Apple')} label="Apple">
                 <AppleIcon />
