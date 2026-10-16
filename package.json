@@ -22,7 +22,6 @@
     "qrcode": "^1.5.4",
     "react": "^19.3.1",
     "react-dom": "^19.3.1",
-    "tailwind-merge": "^2.5.4",
     "zustand": "^5.0.15"
   },
   "devDependencies": {
@@ -35,6 +34,7 @@
     "eslint": "^9.39.5",
     "eslint-config-next": "^16.4.2",
     "postcss": "^8.4.49",
+    "tailwind-merge": "^3.7.0",
     "tailwindcss": "^4.3.3",
     "typescript": "^5.6.3"
   },
