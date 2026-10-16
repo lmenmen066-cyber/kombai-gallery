@@ -222,13 +222,12 @@ export function DonutChart({
   const c = 2 * Math.PI * r
   const total = segments.reduce((s, x) => s + x.value, 0) || 1
 
-  let acc = 0
-  const arcs = segments.map((s) => {
+  // Pure prefix-sum offsets (no mutation during render) so the segment sweep
+  // satisfies react-hooks/immutability.
+  const arcs = segments.map((s, i) => {
     const frac = s.value / total
-    const dash = frac * c
-    const offset = acc * c
-    acc += frac
-    return { ...s, dash, offset }
+    const offsetFrac = segments.slice(0, i).reduce((sum, p) => sum + p.value, 0) / total
+    return { ...s, dash: frac * c, offset: offsetFrac * c }
   })
 
   return (
