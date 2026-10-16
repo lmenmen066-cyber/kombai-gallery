@@ -10,7 +10,6 @@ import type { Config } from 'tailwindcss'
  * surface, near-black foreground, small-to-moderate radius, generous spacing.
  */
 const config: Config = {
-  darkMode: ['class'],
   content: [
     './app/**/*.{ts,tsx,mdx}',
     './components/**/*.{ts,tsx,mdx}',
