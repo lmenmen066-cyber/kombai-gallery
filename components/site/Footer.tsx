@@ -3,7 +3,7 @@
 import * as React from 'react'
 import Link from 'next/link'
 import { motion, useReducedMotion } from 'framer-motion'
-import { Github, Twitter, Linkedin } from 'lucide-react'
+import { GitHubIcon, XIcon, LinkedInIcon } from '@/components/ui/BrandIcons'
 import { Container } from '@/components/ui/Container'
 import { Button } from '@/components/ui/Button'
 import { fadeUp, pickMotionVariant } from '@/lib/motion/variants'
@@ -87,9 +87,9 @@ export function Footer() {
           <p className="text-caption text-fg-subtle">© {new Date().getFullYear()} Kombai Gallery. All rights reserved.</p>
           <div className="flex items-center gap-4 text-fg-muted">
             {[
-              { icon: Github, label: 'GitHub' },
-              { icon: Twitter, label: 'Twitter' },
-              { icon: Linkedin, label: 'LinkedIn' },
+              { icon: GitHubIcon, label: 'GitHub' },
+              { icon: XIcon, label: 'Twitter' },
+              { icon: LinkedInIcon, label: 'LinkedIn' },
             ].map(({ icon: Icon, label }) => (
               <Link
                 key={label}
