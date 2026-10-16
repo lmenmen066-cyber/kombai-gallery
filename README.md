@@ -167,3 +167,34 @@ scripts/
 - `prefers-reduced-motion` is a first-class branch, not an afterthought.
 - Semantic colour tokens only — dark mode is one class flip, contrast is audited in CI-style runs.
 - Mobile-first: every layout is usable at 320px; content code-splits per route.
+
+---
+
+## Dependency baseline
+
+The toolchain is kept current; every major bump landed on `main` behind the required
+`Lint` + `Build` checks (each verified with a clean CI `npm ci`, not just a local build).
+
+| Package | Version |
+| --- | --- |
+| next | ^16.4.2 |
+| react / react-dom | ^19.3.1 |
+| framer-motion | ^14.3.0 |
+| tailwindcss | ^4.3.3 |
+| tailwind-merge | ^3.7.0 |
+| eslint | ^10.13.0 (flat config) |
+| eslint-config-next | ^16.4.2 |
+| lucide-react | ^1.58.0 |
+| zustand | ^5.0.15 |
+| @radix-ui/* | ^1.x latest patch |
+
+## Upgrade log
+
+- **Next 14 → 15** — required for the React 19 peer (Next 14 pins `react ^18`).
+- **ESLint 9 + flat config** — replaced `.eslintrc.json` with `eslint.config.mjs`; `next lint` → `eslint .` (Next 16 removes `next lint`).
+- **Next 15 → 16** — Turbopack build; `eslint-config-next@16` exports a flat `Linter.Config[]`, so the config imports it directly (FlatCompat crashes on the flat array). Its new React Compiler hooks rules (`set-state-in-effect`/`refs`) are demoted to warnings; genuine ones (`DataTable`, `Charts`) fixed in place.
+- **lucide-react 0.46 → 1.x** — v1 removed brand icons; `Github`/`Twitter`/`Linkedin` replaced by a shared inline `BrandIcons` module.
+- **framer-motion 11 → 14** — all runtime symbols used are still exported; type-level changes cleared by CI.
+- **Tailwind 3 → 4** — `@import "tailwindcss"` + `@config` (reuses the theme) + `@custom-variant dark` (class strategy); `autoprefixer` dropped (bundled); `<alpha-value>` → `color-mix`.
+- **tailwind-merge 2 → 3**, **ESLint 9 → 10** — landed after their companions (Tailwind v4, flat config) were in place; `twMerge`/flat-config APIs unchanged.
+- CI hardening: `next build` retries ×3 to absorb transient `next/font`+Turbopack fetch flakes.
