@@ -80,9 +80,7 @@ export function DataTable({ className }: { className?: string }) {
     setSort((s) => (s.key === key ? { key, dir: s.dir === 'asc' ? 'desc' : 'asc' } : { key, dir: 'asc' }))
 
   // reset to first page whenever the result set shrinks
-  React.useEffect(() => {
-    setPage(0)
-  }, [q, status])
+  const resetPage = React.useCallback(() => setPage(0), [])
 
   const cols: { key: SortKey; label: string; numeric?: boolean }[] = [
     { key: 'name', label: 'Project' },
@@ -100,7 +98,10 @@ export function DataTable({ className }: { className?: string }) {
           <Search className="pointer-events-none absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-fg-subtle" />
           <input
             value={q}
-            onChange={(e) => setQ(e.target.value)}
+            onChange={(e) => {
+              setQ(e.target.value)
+              resetPage()
+            }}
             placeholder="Search projects or owners…"
             aria-label="Search"
             className="h-10 w-full rounded-lg border border-border bg-surface pl-9 pr-3 text-sm text-fg outline-none transition-colors placeholder:text-fg-subtle focus:border-fg/30"
@@ -112,7 +113,10 @@ export function DataTable({ className }: { className?: string }) {
               key={s}
               type="button"
               aria-pressed={status === s}
-              onClick={() => setStatus(s)}
+              onClick={() => {
+                setStatus(s)
+                resetPage()
+              }}
               className={cn(
                 'rounded-full px-3 py-1.5 text-xs font-medium transition-colors',
                 status === s ? 'bg-accent text-accent-contrast' : 'text-fg-muted hover:bg-surface-raised',

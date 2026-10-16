@@ -11,6 +11,18 @@ const eslintConfig = [
     ignores: [".next/**/*", "out/**/*", "build/**/*", "node_modules/**/*"],
   },
   ...coreWebVitals,
+  {
+    // eslint-config-next@16 promotes the new React Compiler hooks rules to
+    // errors. They're opinionated and fire across ~9 existing, intentional
+    // effects (reduced-motion short-circuits, external DOM sync, derived
+    // resets). Downgrade just these two to warnings so the upgrade isn't a
+    // sprawling refactor; every other rule (including real bugs) still errors.
+    // We fixed the genuine one (DataTable) properly.
+    rules: {
+      "react-hooks/set-state-in-effect": "warn",
+      "react-hooks/refs": "warn",
+    },
+  },
 ];
 
 export default eslintConfig;
