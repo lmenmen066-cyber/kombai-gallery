@@ -1,5 +1,9 @@
 # kombai-gallery
 
+[![CI](https://github.com/lmenmen066-cyber/kombai-gallery/actions/workflows/ci.yml/badge.svg?branch=main)](https://github.com/lmenmen066-cyber/kombai-gallery/actions/workflows/ci.yml)
+[![Release](https://img.shields.io/github/v/release/lmenmen066-cyber/kombai-gallery)](https://github.com/lmenmen066-cyber/kombai-gallery/releases)
+[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](./LICENSE)
+
 A quiet, **editorial design system** built with **Next.js 16 (App Router) · Tailwind CSS 4 ·
 Framer Motion 14 · Radix UI · Zustand · TypeScript (ESLint 10, flat config)**, inspired by the
 [Kombai Gallery](https://kombai.com/gallery/web) reference site's own chrome: **light-first,
