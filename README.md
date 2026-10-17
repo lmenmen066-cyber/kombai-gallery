@@ -205,3 +205,18 @@ The toolchain is kept current; every major bump landed on `main` behind the requ
 mark a PR ready (or let Dependabot auto-merge non-major bumps) and it rebases onto the
 latest `main`, runs the checks, and merges only when green — no manual merge, no
 out-of-date races. Enable/manage the queue under **Settings → General → Merge queue**.
+
+## Dependabot
+
+Two Dependabot channels keep dependencies current without manual toil:
+
+- **Version updates** (`.github/dependabot.yml`): weekly (Mon 09:00 Asia/Shanghai) —
+  bumps GitHub Actions and npm deps; npm minor/patch are grouped into one PR, majors stay
+  separate. Non-major PRs are auto-merged on green (majors left for human review).
+- **Security updates** (repo setting): when a CVE lands on a dependency, Dependabot opens a
+  patched PR automatically. Requires the dependency graph + vulnerability alerts, which are
+  enabled; toggle under **Settings → Code and automation → Security & analysis**.
+
+Note: current advisories are all dev-only (production dependencies report 0 vulnerabilities),
+so we deliberately do not run `npm audit fix --force` — it would force breaking majors on the
+toolchain for no shipped-code benefit.
