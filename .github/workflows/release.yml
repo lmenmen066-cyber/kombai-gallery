@@ -39,6 +39,22 @@ jobs:
       - name: Contrast report
         run: node scripts/contrast-audit.mjs a11y-contrast-report.md
 
+      - name: Enforce version consistency
+        # The tag, package.json version, and CHANGELOG entry must agree — abort
+        # the release otherwise (no mislabeled / undocumented releases).
+        env:
+          TAG: ${{ github.ref_name }}
+        run: |
+          tag="${TAG#v}"
+          pkg="$(node -p "require('./package.json').version")"
+          if [ "$tag" != "$pkg" ]; then
+            echo "::error::tag $TAG but package.json is $pkg (expected v$pkg)"; exit 1
+          fi
+          if ! grep -qE "^## \[$tag\]" CHANGELOG.md; then
+            echo "::error::CHANGELOG.md has no '## [$tag]' section"; exit 1
+          fi
+          echo "OK: tag $TAG matches package.json ($pkg) and CHANGELOG."
+
       - name: Create GitHub Release
         env:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
