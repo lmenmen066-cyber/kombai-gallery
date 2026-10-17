@@ -1,5 +1,6 @@
 # kombai-gallery
 
+[![Live @ GitHub Pages](https://img.shields.io/badge/Live%20%E2%86%92-GitHub%20Pages-brightgreen)](https://lmenmen066-cyber.github.io/kombai-gallery/)
 [![CI](https://github.com/lmenmen066-cyber/kombai-gallery/actions/workflows/ci.yml/badge.svg?branch=main)](https://github.com/lmenmen066-cyber/kombai-gallery/actions/workflows/ci.yml)
 [![Release](https://img.shields.io/github/v/release/lmenmen066-cyber/kombai-gallery)](https://github.com/lmenmen066-cyber/kombai-gallery/releases)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](./LICENSE)
