@@ -1,0 +1,64 @@
+name: Vercel Preview
+
+# OPT-IN: inert until you set a repo Variable VERCEL_PREVIEW_ENABLED=true AND the
+# three VERCEL_* secrets (see CONTRIBUTING.md → "Vercel previews"). While disabled
+# this job is skipped, so it neither deploys nor fails the branch.
+
+on:
+  pull_request:
+    types: [opened, synchronize, reopened]
+
+permissions:
+  contents: read
+  pull-requests: write
+
+concurrency:
+  group: vercel-preview-${{ github.event.pull_request.number }}
+  cancel-in-progress: true
+
+jobs:
+  preview:
+    if: vars.VERCEL_PREVIEW_ENABLED == 'true'
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    environment:
+      name: vercel-preview-${{ github.event.number }}
+      url: ${{ steps.deploy.outputs.url }}
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v7
+
+      - name: Setup Node
+        uses: actions/setup-node@v5
+        with:
+          node-version: 22
+          cache: npm
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Build
+        run: npm run build
+        env:
+          NEXT_TELEMETRY_DISABLED: "1"
+
+      - name: Deploy preview to Vercel
+        id: deploy
+        env:
+          VERCEL_TOKEN: ${{ secrets.VERCEL_TOKEN }}
+          VERCEL_ORG_ID: ${{ secrets.VERCEL_ORG_ID }}
+          VERCEL_PROJECT_ID: ${{ secrets.VERCEL_PROJECT_ID }}
+        run: |
+          url="$(npx --yes vercel deploy --prebuilt --yes --token "$VERCEL_TOKEN" | tail -1)"
+          echo "url=$url" >> "$GITHUB_OUTPUT"
+
+      - name: Comment the preview URL on the PR
+        uses: actions/github-script@v7
+        with:
+          script: |
+            const url = '${{ steps.deploy.outputs.url }}'
+            const body = `Vercel preview ready: ${url}`
+            await github.rest.issues.createComment({
+              owner: context.repo.owner, repo: context.repo.repo,
+              issue_number: context.issue.number, body,
+            })
