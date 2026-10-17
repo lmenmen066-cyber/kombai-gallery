@@ -1,5 +1,5 @@
 import type { Metadata, Viewport } from 'next'
-import { Syne, Space_Grotesk, JetBrains_Mono } from 'next/font/google'
+import localFont from 'next/font/local'
 import { ThemeProvider } from '@/components/providers/ThemeProvider'
 import { PrefsProvider } from '@/components/providers/PrefsProvider'
 import { Toaster } from '@/components/ui/Toast'
@@ -7,23 +7,30 @@ import { Cursor } from '@/components/ui/Cursor'
 import { CommandPalette } from '@/components/ui/CommandPalette'
 import './globals.css'
 
-const syne = Syne({
-  subsets: ['latin'],
+// Self-hosted (vendored under SIL OFL — see app/fonts/*-OFL.txt). next/font/google
+// fetches fonts at build time, which intermittently fails under Turbopack in CI;
+// local fonts make the build network-independent and deterministic.
+const syne = localFont({
   variable: '--font-syne',
   display: 'swap',
-  weight: ['500', '600', '700', '800'],
+  src: [
+    { path: './fonts/syne-latin-500-normal.woff2', weight: '500', style: 'normal' },
+    { path: './fonts/syne-latin-600-normal.woff2', weight: '600', style: 'normal' },
+    { path: './fonts/syne-latin-700-normal.woff2', weight: '700', style: 'normal' },
+    { path: './fonts/syne-latin-800-normal.woff2', weight: '800', style: 'normal' },
+  ],
 })
-const spaceGrotesk = Space_Grotesk({
-  subsets: ['latin'],
+const spaceGrotesk = localFont({
   variable: '--font-space-grotesk',
   display: 'swap',
-  weight: ['400', '500', '600'],
+  src: './fonts/space-grotesk-latin-wght-normal.woff2',
+  weight: '400 600',
 })
-const jetbrains = JetBrains_Mono({
-  subsets: ['latin'],
+const jetbrains = localFont({
   variable: '--font-jetbrains',
   display: 'swap',
-  weight: ['400', '500'],
+  src: './fonts/jetbrains-mono-latin-wght-normal.woff2',
+  weight: '400 500',
 })
 
 export const metadata: Metadata = {
