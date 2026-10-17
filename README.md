@@ -1,12 +1,16 @@
 # kombai-gallery
 
-A quiet, **editorial design system** built with **Next.js 14 (App Router) · Tailwind CSS 3.4 ·
-Framer Motion 11 · Radix UI · Zustand · TypeScript**, inspired by the
+A quiet, **editorial design system** built with **Next.js 16 (App Router) · Tailwind CSS 4 ·
+Framer Motion 14 · Radix UI · Zustand · TypeScript (ESLint 10, flat config)**, inspired by the
 [Kombai Gallery](https://kombai.com/gallery/web) reference site's own chrome: **light-first,
 typography-led, generous spacing, restrained motion, subtle warm→cool gradient accent**.
 
 Every component is a **real, wired implementation** — not a stub — and the whole site is verified
-on a standing `typecheck + build (static prerender) + live `next start` + curl` cadence.
+on a standing `typecheck + build (static prerender) + live next start + curl` cadence.
+
+Contributing? See **[CONTRIBUTING.md](./CONTRIBUTING.md)** (setup, the PR/merge-queue flow, and
+the tag-based release steps). Release history lives in **[CHANGELOG.md](./CHANGELOG.md)**;
+vulnerability reporting in **[SECURITY.md](./SECURITY.md)**.
 
 > 📖 **Live component index:** the running app has a Storybook-style catalog at
 > **[`/components`](/components)** — searchable, grouped by category, with live previews.
