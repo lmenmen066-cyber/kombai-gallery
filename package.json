@@ -2,7 +2,8 @@
   "name": "kombai-gallery",
   "version": "0.1.0",
   "private": true,
-  "description": "A Kombai-inspired design-system showcase built with Next.js 14 + Tailwind + Framer Motion.",
+  "license": "MIT",
+  "description": "A Kombai-inspired design-system showcase built with Next.js 16 + Tailwind CSS 4 + Framer Motion 14.",
   "scripts": {
     "dev": "next dev",
     "build": "next build",
