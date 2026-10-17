@@ -40,8 +40,8 @@ jobs:
         env:
           NEXT_TELEMETRY_DISABLED: "1"
 
-      - name: Unit tests (Vitest)
-        run: npm run test
+      - name: Unit tests (Vitest + coverage gate)
+        run: npm run test:coverage
 
   build:
     name: Build

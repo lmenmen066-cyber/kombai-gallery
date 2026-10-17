@@ -17,5 +17,22 @@ export default defineConfig({
     setupFiles: ['./vitest.setup.ts'],
     include: ['**/*.test.{ts,tsx}'],
     exclude: ['node_modules/**', '.next/**', 'out/**'],
+    coverage: {
+      provider: 'v8',
+      // Scope the gate to modules that have tests, so the threshold is
+      // meaningful (whole-app coverage would be ~2% and always fail).
+      include: [
+        'lib/utils/cn.ts',
+        'components/ui/Badge.tsx',
+        'components/ui/Divider.tsx',
+        'components/ui/Toggle.tsx',
+        'components/ui/Spinner.tsx',
+      ],
+      reporter: ['text'],
+      // Regression floor (measured current: 100/100/100 lines/stmts/funcs,
+      // 75.6 branches). Sits just below actual so real drops fail CI while
+      // minor uncovered variant branches don't cause flakiness.
+      thresholds: { lines: 95, statements: 95, functions: 95, branches: 70 },
+    },
   },
 })
