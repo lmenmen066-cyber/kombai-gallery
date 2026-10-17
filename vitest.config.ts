@@ -32,6 +32,10 @@ export default defineConfig({
         'components/ui/Tabs.tsx',
         'components/ui/Modal.tsx',
       ],
+      // CommandPalette.tsx is behavior-tested (see its test) but intentionally
+      // left OUT of the % gate: it's a large composition file, and folding it in
+      // would only reward gaming a number, so we keep the floor on tightly unit
+      // -tested modules. Its tests still run and fail CI if broken.
       reporter: ['text'],
       // Regression floor over the tested modules. Measured aggregate is ~
       // 96.6 lines/statements, 92 functions, 75.5 branches; the floor sits just
