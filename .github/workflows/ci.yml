@@ -58,16 +58,7 @@ jobs:
         run: npm ci
 
       - name: Build (static prerender)
-        # next/font/google + Turbopack occasionally fails to fetch the font in
-        # CI (transient, not a code error) — retry a few times before failing.
-        run: |
-          for i in 1 2 3; do
-            if npm run build; then exit 0; fi
-            echo "build attempt $i failed (likely transient next/font fetch); retrying in 5s"
-            sleep 5
-          done
-          echo "::error::build failed after 3 attempts"
-          exit 1
+        run: npm run build
         env:
           NEXT_TELEMETRY_DISABLED: "1"
 
