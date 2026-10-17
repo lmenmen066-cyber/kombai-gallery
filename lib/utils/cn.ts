@@ -1,5 +1,18 @@
 import { clsx, type ClassValue } from 'clsx'
-import { twMerge } from 'tailwind-merge'
+import { extendTailwindMerge } from 'tailwind-merge'
+
+// This theme defines custom font-size utilities (text-caption/body/lead/h1/h2/h3/
+// display). By default tailwind-merge can't tell those from text-COLOR utilities,
+// so it would treat `text-caption` and `text-white` as the same group and drop the
+// earlier one (e.g. silently removing a badge's `text-white`). Register our scale
+// as font-size so sizes merge against sizes and colors against colors.
+const twMerge = extendTailwindMerge({
+  extend: {
+    classGroups: {
+      'font-size': [{ text: ['caption', 'body', 'lead', 'h1', 'h2', 'h3', 'display'] }],
+    },
+  },
+})
 
 /**
  * Merge conditional class names and deduplicate Tailwind utilities.
