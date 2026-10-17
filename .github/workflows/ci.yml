@@ -40,6 +40,9 @@ jobs:
         env:
           NEXT_TELEMETRY_DISABLED: "1"
 
+      - name: Unit tests (Vitest)
+        run: npm run test
+
   build:
     name: Build
     runs-on: ubuntu-latest
