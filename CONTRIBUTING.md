@@ -66,3 +66,29 @@ gh release view v0.2.0
 
 If `package.json`, the tag, and the CHANGELOG disagree, the `Enforce version consistency`
 step fails the run and no release is published — fix the mismatch and re-tag.
+
+## Vercel previews (optional)
+
+`.github/workflows/vercel-preview.yml` comments a per-PR preview URL, but it is **opt-in**
+and **inert by default** — the job is skipped until you enable it (so it never fails a PR).
+Production already deploys to GitHub Pages; this is only for branch-preview links.
+
+To turn it on (one-time; requires a Vercel account):
+
+1. Create/attach a Vercel project for this repo (import the GitHub repo at vercel.com/new),
+   or just note its Project ID + Org ID.
+2. Set the three secrets the workflow needs:
+   ```bash
+   gh secret set VERCEL_TOKEN      # from https://vercel.com/account/tokens
+   gh secret set VERCEL_ORG_ID
+   gh secret set VERCEL_PROJECT_ID
+   ```
+3. Flip the gate on:
+   ```bash
+   gh variable set VERCEL_PREVIEW_ENABLED --body true
+   ```
+
+After that, every PR posts a Vercel preview URL. To disable, set the variable to `false`
+(or remove it) — the job returns to being skipped. (Alternatively, install Vercel's GitHub
+App for zero-config previews; then you don't need this workflow at all.)
+
