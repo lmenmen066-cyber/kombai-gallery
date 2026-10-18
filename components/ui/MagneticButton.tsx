@@ -17,6 +17,7 @@ export function MagneticButton({
   href,
   onClick,
   type,
+  disabled,
   variant = 'primary',
   size = 'md',
   fullWidth,
@@ -30,6 +31,7 @@ export function MagneticButton({
   href?: string
   onClick?: React.MouseEventHandler<HTMLElement>
   type?: 'button' | 'submit' | 'reset'
+  disabled?: boolean
   variant?: 'primary' | 'secondary' | 'outline' | 'ghost' | 'link'
   size?: 'sm' | 'md' | 'lg'
   fullWidth?: boolean
@@ -49,6 +51,7 @@ export function MagneticButton({
         href={href}
         onClick={onClick}
         type={type}
+        disabled={disabled}
         variant={variant}
         size={size}
         fullWidth={fullWidth}
