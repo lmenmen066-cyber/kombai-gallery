@@ -36,6 +36,8 @@ export default defineConfig({
         'components/ui/Tabs.tsx',
         'components/ui/Modal.tsx',
         'components/ui/Accordion.tsx',
+        'components/ui/Skeleton.tsx',
+        'components/ui/MagneticButton.tsx',
       ],
       // CommandPalette, Carousel, and Chat are behavior-tested but intentionally
       // left OUT of the % gate: they're interaction/composition-heavy (real
