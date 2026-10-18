@@ -35,6 +35,7 @@ export default defineConfig({
         'components/ui/Stepper.tsx',
         'components/ui/Tabs.tsx',
         'components/ui/Modal.tsx',
+        'components/ui/Accordion.tsx',
       ],
       // CommandPalette, Carousel, and Chat are behavior-tested but intentionally
       // left OUT of the % gate: they're interaction/composition-heavy (real
