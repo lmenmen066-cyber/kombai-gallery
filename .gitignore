@@ -5,6 +5,9 @@ out
 build
 dist
 
+# test coverage
+coverage
+
 # env
 .env
 .env*.local
