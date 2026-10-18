@@ -8,7 +8,18 @@ import coreWebVitals from "eslint-config-next/core-web-vitals";
 // script calls the ESLint CLI directly (`eslint .`).
 const eslintConfig = [
   {
-    ignores: [".next/**/*", "out/**/*", "build/**/*", "node_modules/**/*"],
+    ignores: [
+      ".next/**/*",
+      "out/**/*",
+      "build/**/*",
+      "node_modules/**/*",
+      "coverage/**/*",
+      // Playwright config/specs + generated output use Node globals; not app code.
+      "playwright.config.ts",
+      "e2e/**/*",
+      "playwright-report/**/*",
+      "test-results/**/*",
+    ],
   },
   ...coreWebVitals,
   {
