@@ -7,6 +7,9 @@ import { afterEach } from 'vitest'
 if (!Element.prototype.scrollIntoView) {
   Element.prototype.scrollIntoView = function scrollIntoView() {}
 }
+// jsdom lacks Element.prototype.scrollTo/scrollBy (Chat's auto-scroll, dock, etc).
+Element.prototype.scrollTo = Element.prototype.scrollTo || function scrollTo() {}
+Element.prototype.scrollBy = Element.prototype.scrollBy || function scrollBy() {}
 if (!('scrollTo' in window)) {
   Object.defineProperty(window, 'scrollTo', { value: () => {}, writable: true, configurable: true })
 }
