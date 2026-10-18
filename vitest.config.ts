@@ -32,10 +32,12 @@ export default defineConfig({
         'components/ui/Tabs.tsx',
         'components/ui/Modal.tsx',
       ],
-      // CommandPalette.tsx is behavior-tested (see its test) but intentionally
-      // left OUT of the % gate: it's a large composition file, and folding it in
-      // would only reward gaming a number, so we keep the floor on tightly unit
-      // -tested modules. Its tests still run and fail CI if broken.
+      // CommandPalette.tsx and Carousel.tsx are behavior-tested but intentionally
+      // left OUT of the % gate: they are interaction/composition-heavy (real
+      // pointer-drag, setInterval autoplay, focus-hover pause) whose last mile is
+      // fragile to assert, and folding them in just lowers the number without
+      // catching regressions. Their tests still RUN every CI and fail it if broken;
+      // the % floor stays on the tightly unit-tested modules.
       reporter: ['text'],
       // Regression floor over the tested modules. Measured aggregate is ~
       // 96.6 lines/statements, 92 functions, 75.5 branches; the floor sits just
